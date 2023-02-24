@@ -30,11 +30,8 @@ int main()
     background_sprite.setTexture(background);
     background_sprite.setScale(0.5, 0.5);
 
-    // - ship
-
     Ship ship(&window);
-    Laser laser;
-    // laser
+    Enemy enemy;
 
     // GAME ENGINE LOOP
 
@@ -64,7 +61,7 @@ int main()
                 }
                 else if (event.key.code == sf::Keyboard::Key::Space)
                 {
-                    laser.isShooting = true;
+                    //laser.isShooting = true;
                 }
             }
             if (event.type == sf::Event::KeyReleased)
@@ -82,17 +79,16 @@ int main()
         // Activate the window for OpenGL rendering
         window.setActive();
 
+        enemy.move(&window);
+
         ship.moveShip(&window);
-
-        laser.shoot(ship.ship_current_position_x, ship.ship_current_position_y);
-
-       // laser.laser_sprite.setPosition(laser.laser_position_x, laser.laser_position_y+50);
 
         // DRAW
         window.clear();
         window.draw(background_sprite);
-        window.draw(laser.laser_sprite);
+       // window.draw(laser.laser_sprite);
         window.draw(ship.ship_sprite);
+        window.draw(enemy.enemy_sprite);
 
         // End the current frame and display its contents on screen
         window.display();
