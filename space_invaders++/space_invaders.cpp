@@ -5,14 +5,12 @@
 #include <SFML/Graphics.hpp>
 #include "space_invaders.hpp"
 
-/* 
+/*
 RUN:
 
-g++ -std=c++11 space_invaders.cpp space_invaders.hpp space_invaders_classes.cpp -I/opt/homebrew/Cellar/sfml/2.5.1_2/include 
--L/opt/homebrew/Cellar/sfml/2.5.1_2/lib/ -lsfml-system -lsfml-window -lsfml-graphics      
+g++ -std=c++11 space_invaders.cpp space_invaders.hpp space_invaders_classes.cpp -I/opt/homebrew/Cellar/sfml/2.5.1_2/include -L/opt/homebrew/Cellar/sfml/2.5.1_2/lib/ -lsfml-system -lsfml-window -lsfml-graphics
 
  */
-
 
 int main()
 {
@@ -30,9 +28,10 @@ int main()
     background_sprite.setTexture(background);
     background_sprite.setScale(0.5, 0.5);
 
+    //-ship-enemy-laser
     Ship ship(&window);
     Enemy enemy;
-
+    std::vector<Laser> projectile;
     // GAME ENGINE LOOP
 
     // The main loop - ends as soon as the window is closed
@@ -61,7 +60,8 @@ int main()
                 }
                 else if (event.key.code == sf::Keyboard::Key::Space)
                 {
-                    //laser.isShooting = true;
+                    ship.isShooting = true;
+                    std::cout << ship.ship_position.x << std::endl;
                 }
             }
             if (event.type == sf::Event::KeyReleased)
@@ -81,12 +81,30 @@ int main()
 
         enemy.move(&window);
 
+        if (ship.isShooting)
+        {   
+            Laser laser(ship.ship_position.x);
+            projectile.push_back(laser);
+            projectile[0].shoot();
+            std::cout<<projectile.empty()<<std::endl;
+            if (projectile[0].laser_position.y < 0)
+            {
+                projectile.clear();
+                std::cout<<projectile.empty()<<std::endl;
+
+                ship.isShooting = false;
+            }
+        }
+
         ship.moveShip(&window);
 
         // DRAW
         window.clear();
         window.draw(background_sprite);
-       // window.draw(laser.laser_sprite);
+        if (!projectile.empty())
+        {
+            window.draw(projectile[0].shape);
+        }
         window.draw(ship.ship_sprite);
         window.draw(enemy.enemy_sprite);
 
@@ -95,4 +113,3 @@ int main()
     }
     return 0;
 }
-
