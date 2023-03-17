@@ -41,3 +41,15 @@ public:
     void move(sf::RenderWindow *window);
     Enemy();
 };
+
+class Laser
+{
+private:
+
+public:
+    sf::Vector2i laser_position;
+    sf::CircleShape shape;
+    bool isShooting;
+    void shoot();
+    Laser(int ship_x);
+};

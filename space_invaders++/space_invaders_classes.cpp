@@ -67,11 +67,36 @@ void Enemy::move(sf::RenderWindow *window)
     int max_right = window->getSize().x - m_enemy_sprite_width;
 
     enemy_position.x += m_enemy_speed;
-    if (enemy_position.x<= max_left || enemy_position.x >= max_right)
-    {   
+    if (enemy_position.x <= max_left || enemy_position.x >= max_right)
+    {
         enemy_position.y += m_enemy_sprite_height;
         m_enemy_speed *= -1;
     }
 
     enemy_sprite.setPosition(enemy_position.x, enemy_position.y);
+}
+//
+// --- LASER ---
+//
+void Laser::shoot()
+{
+    shape.setFillColor(sf::Color::Red);
+    laser_position.y -= 5;
+    //laser_position.x = 700;
+    if (laser_position.y < 0)
+    {
+        isShooting = false;
+        shape.setFillColor(sf::Color::Transparent);
+    }
+
+    shape.setPosition(laser_position.x, laser_position.y);
+}
+
+Laser::Laser(int ship_x)
+{   
+    laser_position = {ship_x, 700};
+    isShooting = false;
+    shape.setRadius(5);
+    //laser_position = {300, 700};
+
 }
