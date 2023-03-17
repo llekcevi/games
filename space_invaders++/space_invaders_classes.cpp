@@ -82,13 +82,6 @@ void Laser::shoot()
 {
     shape.setFillColor(sf::Color::Red);
     laser_position.y -= 5;
-    //laser_position.x = 700;
-    if (laser_position.y < 0)
-    {
-        isShooting = false;
-        shape.setFillColor(sf::Color::Transparent);
-    }
-
     shape.setPosition(laser_position.x, laser_position.y);
 }
 
@@ -97,6 +90,4 @@ Laser::Laser(int ship_x)
     laser_position = {ship_x, 700};
     isShooting = false;
     shape.setRadius(5);
-    //laser_position = {300, 700};
-
 }

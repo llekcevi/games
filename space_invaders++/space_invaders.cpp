@@ -86,11 +86,9 @@ int main()
             Laser laser(ship.ship_position.x);
             projectile.push_back(laser);
             projectile[0].shoot();
-            std::cout<<projectile.empty()<<std::endl;
             if (projectile[0].laser_position.y < 0)
             {
                 projectile.clear();
-                std::cout<<projectile.empty()<<std::endl;
 
                 ship.isShooting = false;
             }
