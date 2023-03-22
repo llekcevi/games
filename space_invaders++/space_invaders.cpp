@@ -15,7 +15,7 @@ g++ -std=c++11 space_invaders.cpp space_invaders.hpp space_invaders_classes.cpp 
 int main()
 {
     // Declare and create a new window
-    sf::RenderWindow window(sf::VideoMode(1366, 768), "SFML window");
+    sf::RenderWindow window(sf::VideoMode(1366, 768), "SPACE INVADERS ++");
     // Limit the framerate to 60 frames per second (this step is optional)
     window.setFramerateLimit(60);
 
